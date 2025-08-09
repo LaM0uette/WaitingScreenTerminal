@@ -17,7 +17,6 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     private StreamConfig _config = new();
     private bool _started;
     private CancellationTokenSource? _cts;
-    private Task? _runner;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -27,58 +26,54 @@ public class HomeBase : ComponentBase, IAsyncDisposable
         _sequence = await SequenceService.LoadAsync();
 
         _cts = new CancellationTokenSource();
-        _runner = RunLoopAsync(_cts.Token);
         _started = true;
+        _ = PlaySequenceAsync(_cts.Token);
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        try
-        {
-            _cts?.Cancel();
-            if (_runner is not null) await _runner;
-        }
-        catch { }
-        finally
-        {
-            _cts?.Dispose();
-            _cts = null;
-            _runner = null;
-            _started = false;
-        }
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
+        _started = false;
+        return ValueTask.CompletedTask;
     }
 
-    private async Task RunLoopAsync(CancellationToken ct)
+    private async Task PlaySequenceAsync(CancellationToken ct)
     {
         if (_sequence.Count == 0) return;
 
-        while (!ct.IsCancellationRequested)
+        foreach (var item in _sequence)
         {
-            foreach (SequenceItem item in _sequence)
+            if (ct.IsCancellationRequested) return;
+
+            if (IsPause(item))
             {
-                if (ct.IsCancellationRequested) break;
-
-                if (IsPause(item))
-                {
-                    await SafeDelay(item.DelayMs, ct);
-                }
-                else if (IsReboot(item))
-                {
-                    AppendLine(item);
-                    await SafeDelay(item.DelayMs, ct);
-                    LogLines.Clear();
-                    await InvokeAsync(StateHasChanged);
-                    break;
-                }
-                else
-                {
-                    AppendLine(item);
-                    await SafeDelay(item.DelayMs, ct);
-                }
-
-                await SafeScrollAsync(ct);
+                await SafeDelay(item.DelayMs, ct);
             }
+            else if (IsReboot(item))
+            {
+                AppendLine(item);
+                await SafeDelay(item.DelayMs, ct);
+                LogLines.Clear();
+                await InvokeAsync(StateHasChanged);
+                // redémarrage complet
+                if (!ct.IsCancellationRequested)
+                    _ = PlaySequenceAsync(ct);
+                return;
+            }
+            else
+            {
+                AppendLine(item);
+                await SafeDelay(item.DelayMs, ct);
+            }
+
+            await SafeScrollAsync(ct);
         }
+
+        // relancer à la fin
+        if (!ct.IsCancellationRequested)
+            _ = PlaySequenceAsync(ct);
     }
 
     private void AppendLine(SequenceItem item)
@@ -96,10 +91,10 @@ public class HomeBase : ComponentBase, IAsyncDisposable
 
     private string BuildMessage(string template)
     {
-        DateTime start = DateTime.Today.Add(TimeSpan.Parse(_config.StartTime));
+        var start = DateTime.Today.Add(TimeSpan.Parse(_config.StartTime));
         if (DateTime.Now > start) start = start.AddDays(1);
-        TimeSpan remaining = start - DateTime.Now;
-        string remainingText = $"{(int)remaining.TotalHours:00}:{remaining.Minutes:00}:{remaining.Seconds:00}";
+        var remaining = start - DateTime.Now;
+        var remainingText = $"{(int)remaining.TotalHours:00}:{remaining.Minutes:00}:{remaining.Seconds:00}";
 
         return template
             .Replace("{startTime}", _config.StartTime)
@@ -139,7 +134,8 @@ public class HomeBase : ComponentBase, IAsyncDisposable
 
     private static async Task SafeDelay(int ms, CancellationToken ct)
     {
-        try { await Task.Delay(Math.Max(0, ms), ct); } catch (OperationCanceledException) { }
+        try { await Task.Delay(Math.Max(0, ms), ct); }
+        catch (OperationCanceledException) { }
     }
 
     private async Task SafeScrollAsync(CancellationToken ct)
