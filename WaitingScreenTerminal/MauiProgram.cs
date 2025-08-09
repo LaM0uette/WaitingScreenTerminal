@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Services;
 
 namespace WaitingScreenTerminal;
 
@@ -17,6 +18,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
+        
+        builder.Services.AddSingleton<ISequenceService, SequenceService>();
 
         return builder.Build();
     }

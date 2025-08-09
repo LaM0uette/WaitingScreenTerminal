@@ -1,0 +1,36 @@
+.console-wrap { 
+    height:100vh; 
+    padding:16px 20px; 
+    box-sizing:border-box; 
+}
+
+.console {
+    height:100%; 
+    overflow-y:auto; 
+    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    color:#b8f1ff; 
+    background:#1e1e1e; 
+    line-height:1.5; 
+    font-size:18px; 
+    scrollbar-width:thin;
+}
+
+.line { 
+    white-space:pre-wrap; 
+}
+
+.cursor { 
+    display:inline-block; 
+    width:10px; 
+    height:1em; 
+    background:#b8f1ff; 
+    animation:blink 1s steps(2,start) infinite; 
+    vertical-align:bottom;
+}
+
+
+@keyframes blink { 
+    to { 
+        opacity:0; 
+    } 
+}

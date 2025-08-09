@@ -2,6 +2,18 @@
 @namespace Pages
 @inherits HomeBase
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="console-wrap">
+    
+    <div id="console" class="console">
+        
+        @foreach (string line in Lines)
+        {
+            <div class="line">@line</div>
+        }
+        
+        <span class="cursor"></span>
+        
+    </div>
+    
+</div>

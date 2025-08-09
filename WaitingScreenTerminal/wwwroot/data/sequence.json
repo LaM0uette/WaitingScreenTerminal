@@ -1,0 +1,9 @@
+[
+  { "text": "Initialisation du flux…", "delayMs": 1200 },
+  { "text": "Connexion au chat…", "delayMs": 1000 },
+  { "text": "[PAUSE]", "delayMs": 1500 },
+  { "text": "Préparation des scènes OBS…", "delayMs": 1300 },
+  { "text": "Chargement des assets…", "delayMs": 1000 },
+  { "text": "[PAUSE]", "delayMs": 2000 },
+  { "text": "C’est presque prêt ✨", "delayMs": 1800 }
+]
