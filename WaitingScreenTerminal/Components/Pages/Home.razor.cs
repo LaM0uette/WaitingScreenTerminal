@@ -12,7 +12,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     [Inject] public ISequenceService SequenceService { get; set; } = null!;
 
     private readonly System.Globalization.CultureInfo _fr = new("fr-FR");
-    protected readonly List<LogLine> _lines = new();
+    protected readonly List<LogLine> LogLines = new();
     private List<SequenceItem> _sequence = new();
     private StreamConfig _config = new();
     private bool _started;
@@ -66,7 +66,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
                 {
                     AppendLine(item);
                     await SafeDelay(item.DelayMs, ct);
-                    _lines.Clear();
+                    LogLines.Clear();
                     await InvokeAsync(StateHasChanged);
                     break;
                 }
@@ -90,7 +90,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
             Message = BuildMessage(item.Text)
         };
 
-        _lines.Add(line);
+        LogLines.Add(line);
         _ = InvokeAsync(StateHasChanged);
     }
 
@@ -125,7 +125,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
         level switch
         {
             LogLevel.Warn => "warn",
-            LogLevel.Error => "err",
+            LogLevel.Error => "error",
             _ => "info"
         };
 
@@ -133,7 +133,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
         level switch
         {
             LogLevel.Warn => "WARN",
-            LogLevel.Error => "ERREUR",
+            LogLevel.Error => "ERR",
             _ => "INFO"
         };
 

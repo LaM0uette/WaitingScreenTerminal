@@ -4,16 +4,23 @@
 @inherits HomeBase
 
 
-<div class="console-wrap">
+<div class="console-container">
+    
     <div id="console" class="console">
-        @foreach (LogLine line in _lines)
+        
+        @foreach (LogLine logLine in LogLines)
         {
-            <div class="line">
-                <span class="ts">[@line.Timestamp]</span>
-                <span class="lvl @(GetLevelClass(line.Level))">[@(GetLevelTag(line.Level))]</span>
-                <span class="msg">@line.Message</span>
+            <div class="log-line">
+                <span class="log-line__timestamp">[@logLine.Timestamp]</span>
+                <span class="log-line__level @(GetLevelClass(logLine.Level))">@(GetLevelTag(logLine.Level)):</span>
+                <span class="log-line__msg">@logLine.Message</span>
             </div>
+            
+            <VerticalSpacer Value="8"/>
         }
+
         <span class="cursor"></span>
+
     </div>
+    
 </div>

@@ -1,27 +1,84 @@
-.console-wrap { height:100vh; padding:16px 20px; box-sizing:border-box; }
-.console {
-    height:100%;
-    overflow-y:auto;
-    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    background:#1e1e1e;
-    color:#d1d5db;
-    line-height:1.6;
-    font-size:18px;
-    scrollbar-width:none;
+.console-container { 
+    height: 100vh;
+    
+    padding: 16px 20px;
+    box-sizing: border-box;
 }
-.console::-webkit-scrollbar { width:0; height:0; }
-.line { 
+
+.console {
+    height: 100%;
+    
+    overflow-y: auto;
+    
+    background: transparent;
+    
+    font-size: 1.4rem;
+    
+    scrollbar-width: none;
+    user-select: none;
+    
+    
+    &::-webkit-scrollbar {
+        width:0;
+        height:0;
+    }
+}
+
+.log-line { 
     white-space:pre-wrap; 
     
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+
+
+    & > .log-line__timestamp {
+        width: 100px;
+        flex-shrink: 0;
+        
+        color: #76709e;
+    }
+
+    & > .log-line__level {
+        width: 65px;
+        flex-shrink: 0;
+    }
+    
+    & > .log-line__level.info {
+        color: #5289a1
+    }
+    
+    & > .log-line__level.warn {
+        color: #c19642
+    }
+    
+    & > .log-line__level.error {
+        color: #dd5b5b
+    }
+    
+    & > .log-line__msg {
+        flex: 1;
+        color: #bfccc0;
+    }
 }
 
-.ts { color:#94a3b8 !important; }
-.lvl { font-weight:700; }
-.lvl.info { color:#22d3ee !important; }
-.lvl.warn { color:#f59e0b !important; }
-.lvl.err  { color:#ef4444 !important; }
-.msg { color:#d1d5db; margin-left: 6px; }
-.cursor { display:inline-block; width:10px; height:1em; background:#d1d5db; animation:blink 1s steps(2,start) infinite; vertical-align:bottom; }
-@keyframes blink { to { opacity:0; } }
+
+
+.cursor {
+    width: 10px;
+    height: 1em;
+    
+    display: inline-block;
+    vertical-align: bottom;
+    
+    background: #bfccc0;
+    
+    animation: blink 1s steps(2,start) infinite;
+}
+
+
+@keyframes blink {
+    to {
+        opacity: 0;
+    }
+}
