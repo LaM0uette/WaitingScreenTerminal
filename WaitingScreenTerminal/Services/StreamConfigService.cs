@@ -5,13 +5,21 @@ namespace Services;
 
 public class StreamConfigService : IStreamConfigService
 {
+    #region Statements
+
     private readonly JsonSerializerOptions _options = new() { PropertyNameCaseInsensitive = true };
+
+    #endregion
+
+    #region Methods
 
     public async Task<StreamConfig> LoadAsync()
     {
-        using var stream = await FileSystem.OpenAppPackageFileAsync("wwwroot/data/config.json");
+        await using Stream stream = await FileSystem.OpenAppPackageFileAsync("wwwroot/data/config.json");
         using var reader = new StreamReader(stream);
-        var json = await reader.ReadToEndAsync();
-        return JsonSerializer.Deserialize<StreamConfig>(json, _options) ?? new();
+        string json = await reader.ReadToEndAsync();
+        return JsonSerializer.Deserialize<StreamConfig>(json, _options) ?? new StreamConfig();
     }
+
+    #endregion
 }

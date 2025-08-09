@@ -1,11 +1,12 @@
 ﻿@page "/"
 @namespace Pages
+@using Models
 @inherits HomeBase
 
 
 <div class="console-wrap">
     <div id="console" class="console">
-        @foreach (var line in _lines)
+        @foreach (LogLine line in _lines)
         {
             <div class="line">
                 <span class="ts">[@line.Timestamp]</span>

@@ -54,7 +54,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
 
         while (!ct.IsCancellationRequested)
         {
-            foreach (var item in _sequence)
+            foreach (SequenceItem item in _sequence)
             {
                 if (ct.IsCancellationRequested) break;
 
@@ -96,10 +96,10 @@ public class HomeBase : ComponentBase, IAsyncDisposable
 
     private string BuildMessage(string template)
     {
-        var start = DateTime.Today.Add(TimeSpan.Parse(_config.StartTime));
+        DateTime start = DateTime.Today.Add(TimeSpan.Parse(_config.StartTime));
         if (DateTime.Now > start) start = start.AddDays(1);
-        var remaining = start - DateTime.Now;
-        var remainingText = $"{(int)remaining.TotalHours:00}:{remaining.Minutes:00}:{remaining.Seconds:00}";
+        TimeSpan remaining = start - DateTime.Now;
+        string remainingText = $"{(int)remaining.TotalHours:00}:{remaining.Minutes:00}:{remaining.Seconds:00}";
 
         return template
             .Replace("{startTime}", _config.StartTime)

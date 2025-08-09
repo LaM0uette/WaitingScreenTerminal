@@ -1,10 +1,8 @@
 ﻿namespace Models;
 
-public enum LogLevel { Info, Warn, Error }
-
 public class LogLine
 {
-    public string Timestamp { get; set; } = "";
-    public LogLevel Level { get; set; } = LogLevel.Info;
-    public string Message { get; set; } = "";
+    public string Timestamp { get; init; } = string.Empty;
+    public LogLevel Level { get; init; } = LogLevel.Info;
+    public string Message { get; init; } = string.Empty;
 }

@@ -2,7 +2,6 @@
 
 public class StreamConfig
 {
-    public string StartTime { get; set; } = "20:00";
-    public bool ShowCountdown { get; set; } = true;
-    public string? StreamTitle { get; set; } = "Soirée Code & Chill";
+    public string StartTime { get; init; } = "20:00";
+    public string? StreamTitle { get; init; } = "Soirée Chill";
 }
