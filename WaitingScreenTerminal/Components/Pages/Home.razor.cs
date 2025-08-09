@@ -11,6 +11,7 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     #region Statements
     
     protected readonly List<LogLine> LogLines = [];
+    protected bool ShowStart = true;
 
     [Inject] private IJSRuntime _jsRuntime { get; set; } = null!;
     [Inject] private IStreamConfigService _streamConfigService { get; set; } = null!;
@@ -18,21 +19,12 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     
     private StreamConfig _streamConfig = new();
     private List<SequenceItem> _sequenceItems = [];
-    private bool _started;
     private CancellationTokenSource? _cancellationTokenSource;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    
+    protected override async Task OnInitializedAsync()
     {
-        if (!firstRender || _started) 
-            return;
-
         _streamConfig = await _streamConfigService.LoadAsync();
         _sequenceItems = await _sequenceService.LoadAsync();
-
-        _cancellationTokenSource = new CancellationTokenSource();
-        _started = true;
-        
-        _ = PlaySequenceAsync(_cancellationTokenSource.Token);
     }
 
     #endregion
@@ -59,7 +51,24 @@ public class HomeBase : ComponentBase, IAsyncDisposable
         };
     }
 
+    protected async Task StartAsync()
+    {
+        await ResetAsync();
+        ShowStart = false;
+        StateHasChanged();
+        _cancellationTokenSource = new CancellationTokenSource();
+        _ = PlaySequenceAsync(_cancellationTokenSource.Token);
+    }
 
+    private async Task ResetAsync()
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
+        LogLines.Clear();
+        await InvokeAsync(StateHasChanged);
+    }
+    
     private async Task PlaySequenceAsync(CancellationToken cancellationToken)
     {
         if (_sequenceItems.Count == 0) 
@@ -178,7 +187,6 @@ public class HomeBase : ComponentBase, IAsyncDisposable
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = null;
-        _started = false;
         
         GC.SuppressFinalize(this);
         return ValueTask.CompletedTask;

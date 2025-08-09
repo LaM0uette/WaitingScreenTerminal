@@ -4,23 +4,36 @@
 @inherits HomeBase
 
 
-<div class="console-container">
+<div class="console-root">
     
-    <div id="console" class="console">
+    @if (ShowStart)
+    {
+        <div class="start-overlay">
+            <button class="start-overlay__button" @onclick="StartAsync">Start</button>
+        </div>
+    }
+    else
+    {
+        <div class="console-container">
         
-        @foreach (LogLine logLine in LogLines)
-        {
-            <div class="log-line">
-                <span class="log-line__timestamp">[@logLine.Timestamp]</span>
-                <span class="log-line__level @(GetLevelClass(logLine.Level))">@(GetLevelTag(logLine.Level)):</span>
-                <span class="log-line__msg">@logLine.Message</span>
+            <div id="console" class="console">
+
+                @foreach (LogLine logLine in LogLines)
+                {
+                    <div class="log-line">
+                        <span class="log-line__timestamp">[@logLine.Timestamp]</span>
+                        <span class="log-line__level @(GetLevelClass(logLine.Level))">@(GetLevelTag(logLine.Level)):</span>
+                        <span class="log-line__msg">@logLine.Message</span>
+                    </div>
+                
+                    <VerticalSpacer Value="8"/>
+                }
+
+                <span class="cursor"></span>
+
             </div>
-            
-            <VerticalSpacer Value="8"/>
-        }
 
-        <span class="cursor"></span>
-
-    </div>
+        </div>
+    }
     
 </div>
