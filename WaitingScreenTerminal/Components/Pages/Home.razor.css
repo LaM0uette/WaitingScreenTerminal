@@ -3,18 +3,25 @@
     height:100%;
     overflow-y:auto;
     font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    color:#b8f1ff;
     background:#1e1e1e;
-    line-height:1.5;
+    color:#d1d5db;
+    line-height:1.6;
     font-size:18px;
     scrollbar-width:none;
 }
-.console::-webkit-scrollbar { display:none; }
-.line { white-space:pre-wrap; }
-.ts { color:#7e9fbf; margin-right:.5rem; }
-.lvl { font-weight:700; margin-right:.5rem; }
-.lvl.info { color:#b8f1ff; }
-.lvl.warn { color:#ffd56b; }
-.lvl.err  { color:#ff6b6b; }
-.cursor { display:inline-block; width:10px; height:1em; background:#b8f1ff; animation:blink 1s steps(2,start) infinite; vertical-align:bottom; }
+.console::-webkit-scrollbar { width:0; height:0; }
+.line { 
+    white-space:pre-wrap; 
+    
+    display: flex;
+    flex-direction: row;
+}
+
+.ts { color:#94a3b8 !important; }
+.lvl { font-weight:700; }
+.lvl.info { color:#22d3ee !important; }
+.lvl.warn { color:#f59e0b !important; }
+.lvl.err  { color:#ef4444 !important; }
+.msg { color:#d1d5db; margin-left: 6px; }
+.cursor { display:inline-block; width:10px; height:1em; background:#d1d5db; animation:blink 1s steps(2,start) infinite; vertical-align:bottom; }
 @keyframes blink { to { opacity:0; } }

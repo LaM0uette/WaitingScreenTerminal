@@ -4,16 +4,15 @@
 
 
 <div class="console-wrap">
-    
     <div id="console" class="console">
-        
-        @foreach (string html in rendered)
+        @foreach (var line in _lines)
         {
-            @((MarkupString)$"<div class='line'>{html}</div>")
+            <div class="line">
+                <span class="ts">[@line.Timestamp]</span>
+                <span class="lvl @(GetLevelClass(line.Level))">[@(GetLevelTag(line.Level))]</span>
+                <span class="msg">@line.Message</span>
+            </div>
         }
-
         <span class="cursor"></span>
-
     </div>
-    
 </div>

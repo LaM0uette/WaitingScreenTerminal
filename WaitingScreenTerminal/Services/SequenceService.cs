@@ -15,11 +15,10 @@ public class SequenceService : ISequenceService
 
     public async Task<List<SequenceItem>> LoadAsync()
     {
-        await using Stream s = await FileSystem.OpenAppPackageFileAsync("wwwroot/data/sequence.json");
-        using var r = new StreamReader(s);
-        string json = await r.ReadToEndAsync();
-        List<SequenceItem> list = JsonSerializer.Deserialize<List<SequenceItem>>(json, _options) ?? [];
-        return list;
+        using var stream = await FileSystem.OpenAppPackageFileAsync("wwwroot/data/sequence.json");
+        using var reader = new StreamReader(stream);
+        var json = await reader.ReadToEndAsync();
+        return JsonSerializer.Deserialize<List<SequenceItem>>(json, _options) ?? new();
     }
 
     #endregion
