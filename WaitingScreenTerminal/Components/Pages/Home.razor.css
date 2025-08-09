@@ -1,36 +1,20 @@
-.console-wrap { 
-    height:100vh; 
-    padding:16px 20px; 
-    box-sizing:border-box; 
-}
-
+.console-wrap { height:100vh; padding:16px 20px; box-sizing:border-box; }
 .console {
-    height:100%; 
-    overflow-y:auto; 
+    height:100%;
+    overflow-y:auto;
     font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    color:#b8f1ff; 
-    background:#1e1e1e; 
-    line-height:1.5; 
-    font-size:18px; 
-    scrollbar-width:thin;
+    color:#b8f1ff;
+    background:#1e1e1e;
+    line-height:1.5;
+    font-size:18px;
+    scrollbar-width:none;
 }
-
-.line { 
-    white-space:pre-wrap; 
-}
-
-.cursor { 
-    display:inline-block; 
-    width:10px; 
-    height:1em; 
-    background:#b8f1ff; 
-    animation:blink 1s steps(2,start) infinite; 
-    vertical-align:bottom;
-}
-
-
-@keyframes blink { 
-    to { 
-        opacity:0; 
-    } 
-}
+.console::-webkit-scrollbar { display:none; }
+.line { white-space:pre-wrap; }
+.ts { color:#7e9fbf; margin-right:.5rem; }
+.lvl { font-weight:700; margin-right:.5rem; }
+.lvl.info { color:#b8f1ff; }
+.lvl.warn { color:#ffd56b; }
+.lvl.err  { color:#ff6b6b; }
+.cursor { display:inline-block; width:10px; height:1em; background:#b8f1ff; animation:blink 1s steps(2,start) infinite; vertical-align:bottom; }
+@keyframes blink { to { opacity:0; } }

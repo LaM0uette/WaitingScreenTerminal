@@ -7,13 +7,13 @@
     
     <div id="console" class="console">
         
-        @foreach (string line in Lines)
+        @foreach (string html in rendered)
         {
-            <div class="line">@line</div>
+            @((MarkupString)$"<div class='line'>{html}</div>")
         }
-        
+
         <span class="cursor"></span>
-        
+
     </div>
     
 </div>

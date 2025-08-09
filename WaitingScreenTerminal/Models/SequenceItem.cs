@@ -1,3 +1,3 @@
 ﻿namespace Models;
 
-public record SequenceItem(string Text, int DelayMs);
+public record SequenceItem(string Text, int DelayMs, string Level = "info", string? Command = null);

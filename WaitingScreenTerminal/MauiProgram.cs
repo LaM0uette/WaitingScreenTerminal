@@ -20,6 +20,7 @@ public static class MauiProgram
 #endif
         
         builder.Services.AddSingleton<ISequenceService, SequenceService>();
+        builder.Services.AddSingleton<IStreamConfigService, StreamConfigService>();
 
         return builder.Build();
     }
