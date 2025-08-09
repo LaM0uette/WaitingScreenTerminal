@@ -1,0 +1,40 @@
+/* Maxxi */
+@font-face
+{
+    font-family: 'maxxi';
+    src: url('../fonts/Maxxi/Maxxi.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'maxxi-bold';
+    src: url('../fonts/Maxxi/MaxxiBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'maxxi-light';
+    src: url('../fonts/Maxxi/MaxxiLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'maxxi-thin';
+    src: url('../fonts/Maxxi/MaxxiThin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'maxxi-extras';
+    src: url('../fonts/Maxxi/MaxxiExtras.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
