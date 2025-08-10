@@ -17,7 +17,7 @@
   { "text": "Relance du service chat…", "delayMs": 1500, "level": "info" },
   { "text": "Chat rétabli", "delayMs": 800, "level": "info" },
   { "text": "Vérification de la latence…", "delayMs": 1000, "level": "info" },
-  { "text": "Latence OK: 35 ms", "delayMs": 700, "level": "info" },
+  { "text": "Latence OK: {rng;1;35} ms", "delayMs": 700, "level": "info" },
   { "text": "Compte à rebours: {remaining}", "delayMs": 1200, "level": "info" },
   { "text": "[PAUSE]", "delayMs": 1500 },
   { "text": "Téléversement des assets finaux…", "delayMs": 1000, "level": "info" },

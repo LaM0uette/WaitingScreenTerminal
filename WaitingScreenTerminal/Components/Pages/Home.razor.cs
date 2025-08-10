@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Models;
@@ -140,14 +141,23 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     private string BuildMessage(string template)
     {
         DateTime start = DateTime.Today.Add(TimeSpan.Parse(_streamConfig.StartTime));
-        
+
         if (DateTime.Now > start)
         {
             start = start.AddDays(1);
         }
-        
+
         TimeSpan remaining = start - DateTime.Now;
         string remainingText = $"{(int)remaining.TotalHours:00}:{remaining.Minutes:00}:{remaining.Seconds:00}";
+
+        // {rng;min;max}
+        template = Regex.Replace(template, @"\{rng;(\d+);(\d+)\}", match =>
+        {
+            int min = int.Parse(match.Groups[1].Value);
+            int max = int.Parse(match.Groups[2].Value);
+            Random rng = new();
+            return rng.Next(min, max + 1).ToString();
+        });
 
         return template
             .Replace("{startTime}", _streamConfig.StartTime)
