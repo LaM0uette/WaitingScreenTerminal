@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitingScreenTerminal", "WaitingScreenTerminal\WaitingScreenTerminal.csproj", "{50197380-56FD-40C0-BF01-C798542D7A6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitingScreenTerminal", "WaitingScreenTerminal\WaitingScreenTerminal.csproj", "{96756C80-426C-45CD-8051-2DB8910DC27F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{50197380-56FD-40C0-BF01-C798542D7A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50197380-56FD-40C0-BF01-C798542D7A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50197380-56FD-40C0-BF01-C798542D7A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50197380-56FD-40C0-BF01-C798542D7A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96756C80-426C-45CD-8051-2DB8910DC27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96756C80-426C-45CD-8051-2DB8910DC27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96756C80-426C-45CD-8051-2DB8910DC27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96756C80-426C-45CD-8051-2DB8910DC27F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
