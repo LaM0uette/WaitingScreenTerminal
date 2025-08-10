@@ -20,12 +20,6 @@ public class HomeBase : ComponentBase, IAsyncDisposable
     private StreamConfig _streamConfig = new();
     private List<SequenceItem> _sequenceItems = [];
     private CancellationTokenSource? _cancellationTokenSource;
-    
-    protected override async Task OnInitializedAsync()
-    {
-        _streamConfig = await _streamConfigService.LoadAsync();
-        _sequenceItems = await _sequenceService.LoadAsync();
-    }
 
     #endregion
 
@@ -53,6 +47,9 @@ public class HomeBase : ComponentBase, IAsyncDisposable
 
     protected async Task StartAsync()
     {
+        _streamConfig = await _streamConfigService.LoadAsync();
+        _sequenceItems = await _sequenceService.LoadAsync();
+        
         await ResetAsync();
         ShowStart = false;
         StateHasChanged();
